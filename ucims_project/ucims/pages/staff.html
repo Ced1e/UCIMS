@@ -1,0 +1,38 @@
+<!-- ════════════════════════════════════
+     Staff / Nurse Dashboard
+     Included via index.html
+════════════════════════════════════ -->
+
+<!-- ════════════════════════════════════
+     PAGE: STAFF DASHBOARD
+════════════════════════════════════ -->
+<div class="page" id="page-staff">
+  <div class="topbar">
+    <div class="topbar-logo">
+      <img id="topbar-logo-staff" src="" alt="USeP" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(201,162,39,0.6);object-fit:cover;">
+      <div class="tl-text"><span class="tl-title">UCIMS</span><span>Staff / Nurse Dashboard</span></div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-user" id="staff-topbar-name"></div>
+      <button class="btn-logout" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sidebar-brand">
+        <img id="sb-logo-staff" src="" alt="USeP">
+        <div class="sidebar-brand-text"><div class="sb-title">USeP Clinic</div><div class="sb-sub">Staff / Nurse</div></div>
+      </div>
+      <div class="sidebar-section">Queue</div>
+      <a class="active" id="sn-queue" onclick="staffNav('queue')"><span class="icon">🟢</span> Queue Monitoring</a>
+      <a id="sn-arrivals" onclick="staffNav('arrivals')"><span class="icon">📥</span> Patient Arrival Records</a>
+      <div class="sidebar-section">Clinical</div>
+      <a id="sn-triage" onclick="staffNav('triage')"><span class="icon">🩺</span> Triage Module</a>
+      <a id="sn-services" onclick="staffNav('services')"><span class="icon">💊</span> Services & Documents</a>
+      <div class="sidebar-section">Records</div>
+      <a id="sn-records" onclick="staffNav('records')"><span class="icon">🗄️</span> Records Management</a>
+      <a id="sn-dailylog" onclick="staffNav('dailylog')"><span class="icon">📅</span> Daily Patient Log</a>
+    </div>
+    <div class="main" id="staff-main"></div>
+  </div>
+</div>

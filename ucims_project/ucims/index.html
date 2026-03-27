@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UCIMS – University of Southeastern Philippines Clinic</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+  <!-- ── Stylesheet ── -->
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+  <!--
+  ╔══════════════════════════════════════════════════╗
+  ║   UCIMS – Page Containers                        ║
+  ║   Each file in /pages/ contains the HTML markup  ║
+  ║   for that role/section. JS is loaded below.     ║
+  ╚══════════════════════════════════════════════════╝
+
+  FILE STRUCTURE:
+  ├── index.html          ← You are here (shell / entry point)
+  ├── assets/
+  │   ├── style.css       ← All styles & CSS variables
+  │   ├── data.js         ← Global state, seed data, localStorage
+  │   ├── shared.js       ← Page routing, logout, daily log renderer
+  │   ├── auth.js         ← Login & sign-up wizard
+  │   ├── patient.js      ← Patient portal logic
+  │   ├── staff.js        ← Staff/Nurse dashboard logic
+  │   ├── doctor.js       ← Doctor dashboard logic
+  │   └── modals.js       ← All modal open/save/close handlers
+  └── pages/
+      ├── login.html      ← Login form + Sign-up wizard
+      ├── patient.html    ← Patient portal layout
+      ├── staff.html      ← Staff dashboard layout
+      ├── doctor.html     ← Doctor dashboard layout
+      └── modals.html     ← All shared modal overlays
+  -->
+
+  <!-- ── Page: Login & Sign-up ── -->
+  <div id="include-login"></div>
+
+  <!-- ── Page: Patient Portal ── -->
+  <div id="include-patient"></div>
+
+  <!-- ── Page: Staff Dashboard ── -->
+  <div id="include-staff"></div>
+
+  <!-- ── Page: Doctor Dashboard ── -->
+  <div id="include-doctor"></div>
+
+  <!-- ── Shared Modals (used across all pages) ── -->
+  <div id="include-modals"></div>
+
+  <!-- ════════════════════════════════════
+       JavaScript — load order matters:
+       data → shared → auth → role pages → modals
+  ════════════════════════════════════ -->
+  <script src="assets/data.js"></script>
+  <script src="assets/shared.js"></script>
+  <script src="assets/auth.js"></script>
+  <script src="assets/patient.js"></script>
+  <script src="assets/staff.js"></script>
+  <script src="assets/doctor.js"></script>
+  <script src="assets/modals.js"></script>
+
+  <!-- ── Page Loader: fetches each HTML fragment and injects it ── -->
+  <script>
+    const pageIncludes = [
+      { id: 'include-login',   src: 'pages/login.html'   },
+      { id: 'include-patient', src: 'pages/patient.html' },
+      { id: 'include-staff',   src: 'pages/staff.html'   },
+      { id: 'include-doctor',  src: 'pages/doctor.html'  },
+      { id: 'include-modals',  src: 'pages/modals.html'  },
+    ];
+
+    // Load all page fragments, then initialise the app
+    Promise.all(
+      pageIncludes.map(({ id, src }) =>
+        fetch(src)
+          .then(r => r.text())
+          .then(html => { document.getElementById(id).innerHTML = html; })
+      )
+    ).then(() => {
+      // All fragments loaded — boot the app
+      wireLogo();
+      renderSignupStep();
+      document.getElementById('login-pass')
+        .addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+      document.querySelectorAll('.modal-overlay').forEach(ov => {
+        ov.addEventListener('click', e => { if (e.target === ov) ov.classList.remove('open'); });
+      });
+    }).catch(err => {
+      console.error('Failed to load page fragment:', err);
+    });
+  </script>
+
+</body>
+</html>
