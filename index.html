@@ -1,0 +1,491 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UCIMS-University of Southeastern Philippines Clinic</title>
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+<div class="page active" id="page-home">
+  <div class="home-wrap">
+    <div class="home-topbar">
+      <div class="home-brand">
+        <img src="./assets/img/logo.png" class="logo-img" alt="USeP">
+        <div class="home-brand-name">University of Southeastern Philippines</div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:center;">
+        <button class="btn btn-white-outline btn-sm" onclick="showPage('page-login')">Access System</button>
+      </div>
+    </div>
+    <div class="home-body">
+      <div class="home-container">
+        <div class="home-center">
+          <img src="./assets/img/logo.png" class="logo-img main-logo" alt="USeP Logo">
+          <div class="home-univ">University of Southeastern Philippines</div>
+          <div class="home-system">Clinic Information<br>Management System</div>
+          <div class="home-tagline">A centralized digital platform for managing clinic visits, patient records, consultations, and health documentation securely.</div>
+          <div class="home-btns">
+            <button class="btn btn-white btn-lg" onclick="showPage('page-login');setRole('patient')"><i class="bi bi-person"></i> Patient Login</button>
+            <button class="btn btn-white-outline btn-lg" onclick="showPage('page-login');setRole('staff')"><i class="bi bi-shield-lock"></i> Staff Login</button>
+          </div>
+        </div>
+        
+        <div class="home-info">
+          <div class="home-info-card" style="padding: 32px; background: rgba(255,255,255,0.1);">
+            <div class="home-info-icon"><i class="bi bi-bullseye"></i></div>
+            <div class="home-info-title" style="font-size: 1.2rem; margin-bottom: 14px;">System Objective</div>
+            <div class="home-info-text" style="font-size: 0.95rem; line-height: 1.7; text-align: justify;">
+              The general objective of the proposed University Clinic Information Management System (UCIMS) is to develop a web-based, role-based platform that streamlines and automates the operational workflow of the university clinic, enhancing the efficiency of patient registration, consultation management, and clinical documentation while ensuring data integrity and user-specific access control.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-login">
+  <div class="auth-bg">
+    <div class="auth-card">
+      <div class="auth-logo-row">
+        <img src="./assets/img/logo.png" class="logo-img" alt="USeP Logo">
+        <div class="auth-univ-name">University of Southeastern Philippines</div>
+        <div class="auth-sys-name">Clinic Information Management System</div>
+      </div>
+      <hr class="auth-divider">
+
+      <div class="role-tabs">
+        <button class="role-tab active" onclick="setRole('patient')">Patient</button>
+        <button class="role-tab" onclick="setRole('staff')">Staff</button>
+      </div>
+
+      <div id="login-pat-fields">
+        <div class="field"><label>Email Address</label><input type="email" id="login-email" placeholder="e.g. juan@usep.edu.ph"></div>
+        <div class="field"><label>ID Number</label><input type="text" id="login-idnum" placeholder="e.g. P-001 or 2024-0001"></div>
+      </div>
+
+      <div id="login-staff-fields" style="display:none;">
+        <div class="field"><label>Clinic ID Number</label><input type="text" id="login-clinicid" placeholder="e.g. N-001"></div>
+        <div class="field"><label>Password</label><input type="password" id="login-staffpw" placeholder="e.g. Nurs3!23"></div>
+      </div>
+
+      <div class="alert alert-danger" id="login-error" style="display:none;"></div>
+      <button class="btn btn-primary btn-block" onclick="doLogin()">Log In</button>
+
+      <div id="login-register-link" style="text-align:center;margin-top:18px; font-size: 0.85rem;">
+        <span class="text-muted">Don't have an account?</span> <span class="link" style="color: var(--blue); font-weight: 600;" onclick="goSignup()">Sign up</span>
+      </div>
+
+      <div style="margin-top:20px;background:#f9f8f6;border:1px solid var(--border);border-radius:8px;padding:12px 14px;">
+        <div class="text-xs fw6 text-muted" style="text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">Demo Credentials</div>
+        <div class="text-xs text-muted" style="line-height:1.9;">
+          <b>Patient:</b> maria@usep.edu.ph + P-001<br>
+          <b>Nurse:</b> N-001 / Nurs3!23 &nbsp; <b>Doctor:</b> D-001 / DocT0r!23 &nbsp; <b>Admin:</b> A-001 / Adm1n!23
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:16px;">
+        <span class="link text-xs" onclick="showPage('page-home')"><i class="bi bi-arrow-left"></i> Back to Home</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-signup">
+  <div class="auth-bg" style="align-items:flex-start;padding:32px 16px;overflow-y:auto;">
+    <div class="auth-card" style="width:560px;max-width:100%;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border);">
+        <img src="./assets/img/logo.png" class="logo-img" alt="USeP" style="width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);flex-shrink:0;">
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--maroon);">Patient Registration</div>
+          <div class="text-xs text-muted mt4">University of Southeastern Philippines Clinic</div>
+        </div>
+      </div>
+      <div class="sp-bar" id="su-bar"></div>
+      <div class="text-xs text-muted center mb8" id="su-step-lbl"></div>
+
+      <div id="su-s1">
+        <div class="card-title" style="font-size:.95rem;margin-bottom:12px;">Demographic Information</div>
+        <div class="field-row">
+          <div class="field"><label>First Name *</label><input id="su-fname" placeholder="Juan"></div>
+          <div class="field"><label>Last Name *</label><input id="su-lname" placeholder="dela Cruz"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Date of Birth *</label><input type="date" id="su-dob"></div>
+          <div class="field"><label>Sex *</label><select id="su-sex"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Civil Status</label><select id="su-civil"><option>Single</option><option>Married</option><option>Widowed</option></select></div>
+          <div class="field"><label>Blood Type</label><select id="su-blood"><option value="">Unknown</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div>
+        </div>
+        <div class="field"><label>Email Address *</label><input type="email" id="su-email" placeholder="you@usep.edu.ph"></div>
+        <div class="field"><label>Home Address</label><input id="su-address" placeholder="Street, City, Province"></div>
+        <div class="field"><label>Contact Number</label><input id="su-contact" placeholder="09xx-xxx-xxxx"></div>
+        <div class="field"><label>Emergency Contact Name</label><input id="su-emname" placeholder="Full name"></div>
+        <div class="field-row">
+          <div class="field"><label>Emergency Contact No.</label><input id="su-emcontact" placeholder="09xx-xxx-xxxx"></div>
+          <div class="field"><label>Relationship</label><input id="su-emrel" placeholder="e.g. Mother"></div>
+        </div>
+      </div>
+
+      <div id="su-s2" style="display:none;">
+        <div class="card-title" style="font-size:.95rem;margin-bottom:12px;">Medical History</div>
+        <div class="field"><label>Known Allergies</label><input id="su-allergies" placeholder="e.g. Penicillin, None"></div>
+        <div class="field"><label>Current Medications</label><textarea id="su-meds" placeholder="List medications or write None"></textarea></div>
+        <div class="field"><label>Past Medical Conditions / Surgeries</label><textarea id="su-history" placeholder="e.g. Hypertension (2018)..."></textarea></div>
+        <div class="field"><label>Family Medical History</label><textarea id="su-family" placeholder="e.g. Diabetes (mother)..."></textarea></div>
+        <div class="field"><label>Immunizations</label><input id="su-immuniz" placeholder="e.g. COVID-19, Flu..."></div>
+        <div class="field"><label>Lifestyle Notes</label><textarea id="su-lifestyle" placeholder="Smoker, alcohol use, activity level..."></textarea></div>
+      </div>
+
+      <div id="su-s3" style="display:none;">
+        <div class="card-title" style="font-size:.95rem;margin-bottom:12px;">Permanent Patient Record</div>
+        <div class="field-row">
+          <div class="field"><label>Student / Employee ID *</label><input id="su-studid" placeholder="2024-00001"></div>
+          <div class="field"><label>Patient Type</label><select id="su-pattype"><option>Student</option><option>Staff</option></select></div>
+        </div>
+        <div class="field"><label>College / Department *</label>
+          <select id="su-dept">
+            <option value="">Select your college...</option>
+            <option>College of Engineering</option>
+            <option>College of Arts and Sciences</option>
+            <option>College of Economics</option>
+            <option>College of Education</option>
+            <option>College of Business Administration</option>
+            <option>College of Information and Computing</option>
+            <option>College of Technology</option>
+          </select>
+        </div>
+        <div class="field"><label>Year Level</label>
+          <select id="su-yearsec">
+            <option value="">Select year level...</option>
+            <option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option>
+          </select>
+        </div>
+        <div class="field"><label>PhilHealth / HMO Number</label><input id="su-philhealth" placeholder="Optional"></div>
+        <div class="field"><label>Primary Care Physician (if any)</label><input id="su-pcp" placeholder="Optional"></div>
+      </div>
+
+      <div id="su-s4" style="display:none;">
+        <div class="card-title" style="font-size:.95rem;margin-bottom:12px;">Consent Form & Account Setup</div>
+        <div class="alert alert-info" style="font-size:.82rem;line-height:1.6;margin-bottom:14px;">
+          By registering, you voluntarily consent to the collection and processing of your personal and medical information by the USeP University Clinic for health service purposes, in accordance with RA 11058 and the Data Privacy Act (RA 10173). Your records will be kept strictly confidential.
+        </div>
+        <div class="field-check"><input type="checkbox" id="su-c1"><label for="su-c1">I consent to the collection and processing of my personal and medical data for health service purposes. *</label></div>
+        <div class="field-check"><input type="checkbox" id="su-c2"><label for="su-c2">I confirm that all information I have provided is accurate and complete. *</label></div>
+        <div class="field-check"><input type="checkbox" id="su-c3"><label for="su-c3">I allow the clinic to share relevant information with referring physicians when necessary.</label></div>
+        <hr class="div" style="margin:14px 0;">
+        <div class="field-row">
+          <div class="field"><label>Create Login ID *</label><input id="su-lid" placeholder="e.g. P-2024-001"></div>
+          <div class="field"><label>Set Password *</label><input type="password" id="su-lpw" placeholder="Min. 6 characters"></div>
+        </div>
+      </div>
+
+      <div class="alert alert-danger" id="su-err" style="display:none;margin-top:10px;"></div>
+      <div style="display:flex;justify-content:space-between;gap:10px;margin-top:16px;">
+        <button class="btn btn-outline" id="su-back" onclick="suBack()" style="display:none;"><i class="bi bi-arrow-left"></i> Back</button>
+        <button class="btn btn-primary" id="su-next" onclick="suNext()" style="margin-left:auto;">Next <i class="bi bi-arrow-right"></i></button>
+      </div>
+      <div class="center mt12"><span class="link text-xs" onclick="showPage('page-login')"><i class="bi bi-arrow-left"></i> Back to Login</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-patient">
+  <div class="topbar">
+    <div class="topbar-brand">
+      <img src="./assets/img/logo.png" class="logo-img" alt="USeP">
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-title">University of Southeastern Philippines</span>
+        <span class="topbar-brand-sub">Clinic Information Management System</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-user">
+        <div class="topbar-avatar" id="patient-tb-av">P</div>
+        <div><div class="topbar-user-name" id="patient-tb-name">Patient</div><div class="topbar-user-role" id="patient-tb-role">Patient Portal</div></div>
+      </div>
+      <button class="btn-logout" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sidebar-head"><img src="./assets/img/logo.png" class="logo-img" alt="USeP"><div class="sidebar-header-text"><div class="sh-title">USeP Clinic</div><div class="sh-sub">Patient Portal</div></div></div>
+      <div class="sidebar-section">Visit</div>
+      <a onclick="patNav('visit')"><i class="bi bi-hospital nav-icon"></i> Visit Purpose Selection</a>
+      <a onclick="patNav('queue')"><i class="bi bi-list-ol nav-icon"></i> Queue Status</a>
+    </div>
+    <div class="main-content" id="pat-main"></div>
+  </div>
+</div>
+
+<div class="page" id="page-nurse">
+  <div class="topbar">
+    <div class="topbar-brand">
+      <img src="" class="logo-img" alt="USeP">
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-title">University of Southeastern Philippines</span>
+        <span class="topbar-brand-sub">Clinic Information Management System</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-user">
+        <div class="topbar-avatar" id="nurse-tb-av" style="background:var(--blue);">N</div>
+        <div><div class="topbar-user-name" id="nurse-tb-name">Nurse</div><div class="topbar-user-role" id="nurse-tb-role">Nurse Interface</div></div>
+      </div>
+      <button class="btn-logout" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sidebar-head"><img src="" class="logo-img" alt="USeP"><div class="sidebar-header-text"><div class="sh-title">USeP Clinic</div><div class="sh-sub">Nurse Interface</div></div></div>
+      <div class="sidebar-section">Queue</div>
+      <a id="nn-queue" onclick="nurseNav('queue')"><i class="bi bi-people nav-icon"></i> Queue Monitoring</a>
+      <div class="sidebar-section">Records</div>
+      <a id="nn-records" onclick="nurseNav('records')"><i class="bi bi-folder2-open nav-icon"></i> Record Management</a>
+      <a id="nn-daily-records" onclick="nurseNav('daily-records')"><i class="bi bi-clipboard-pulse nav-icon"></i> Daily Patient Records</a>
+      <div class="sidebar-section">Services</div>
+      <a id="nn-services" onclick="nurseNav('services')"><i class="bi bi-capsule nav-icon"></i> Services</a>
+      <div class="sidebar-section">Logs</div>
+      <a id="nn-log" onclick="nurseNav('log')"><i class="bi bi-calendar3 nav-icon"></i> Daily Patient Log</a>
+    </div>
+    <div class="main-content" id="nurse-main"></div>
+  </div>
+</div>
+
+<div class="page" id="page-doctor">
+  <div class="topbar">
+    <div class="topbar-brand">
+      <img src="" class="logo-img" alt="USeP">
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-title">University of Southeastern Philippines</span>
+        <span class="topbar-brand-sub">Clinic Information Management System</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-user">
+        <div class="topbar-avatar" id="doctor-tb-av" style="background:var(--green);">D</div>
+        <div><div class="topbar-user-name" id="doctor-tb-name">Doctor</div><div class="topbar-user-role" id="doctor-tb-role">Doctor Interface</div></div>
+      </div>
+      <button class="btn-logout" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sidebar-head"><img src="" class="logo-img" alt="USeP"><div class="sidebar-header-text"><div class="sh-title">USeP Clinic</div><div class="sh-sub">Doctor Interface</div></div></div>
+      <div class="sidebar-section">Consultations</div>
+      <a id="dn-consult" onclick="docNav('consult')"><i class="bi bi-heart-pulse nav-icon"></i> Active Consultations</a>
+      <div class="sidebar-section">History</div>
+      <a id="dn-history" onclick="docNav('history')"><i class="bi bi-clock-history nav-icon"></i> Examination History</a>
+    </div>
+    <div class="main-content" id="doctor-main"></div>
+  </div>
+</div>
+
+<div class="page" id="page-admin">
+  <div class="topbar">
+    <div class="topbar-brand">
+      <img src="" class="logo-img" alt="USeP">
+      <div class="topbar-brand-text">
+        <span class="topbar-brand-title">University of Southeastern Philippines</span>
+        <span class="topbar-brand-sub">Clinic Information Management System</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-user">
+        <div class="topbar-avatar" id="admin-tb-av" style="background:#555;">A</div>
+        <div><div class="topbar-user-name" id="admin-tb-name">Admin</div><div class="topbar-user-role" id="admin-tb-role">Admin Interface</div></div>
+      </div>
+      <button class="btn-logout" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sidebar-head"><img src="" class="logo-img" alt="USeP"><div class="sidebar-header-text"><div class="sh-title">USeP Clinic</div><div class="sh-sub">Admin Interface</div></div></div>
+      <div class="sidebar-section">Management</div>
+      <a id="an-accounts"   onclick="adminNav('accounts')"><i class="bi bi-person-lines-fill nav-icon"></i> Account Creation</a>
+      <a id="an-auth"       onclick="adminNav('auth')"><i class="bi bi-shield-lock nav-icon"></i> Authorization Management</a>
+      <div class="sidebar-section">Validation</div>
+      <a id="an-validation" onclick="adminNav('validation')"><i class="bi bi-check2-all nav-icon"></i> Record Validation</a>
+    </div>
+    <div class="main-content" id="admin-main"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-triage">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-triage')"><i class="bi bi-x"></i></button>
+    <div class="modal-title"><i class="bi bi-clipboard2-pulse"></i> Triage Assessment</div>
+    <div class="text-sm text-muted mb8" id="triage-patient"></div>
+    <div class="card-title" style="font-size:.88rem;margin-bottom:10px;">Vital Signs</div>
+    <div class="field-row">
+      <div class="field"><label>Blood Pressure (mmHg) *</label><input id="tr-bp" placeholder="e.g. 120/80"></div>
+      <div class="field"><label>Heart Rate (bpm)</label><input id="tr-hr" placeholder="e.g. 78"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Temperature (Â°C)</label><input id="tr-temp" placeholder="e.g. 36.8"></div>
+      <div class="field"><label>Respiratory Rate</label><input id="tr-rr" placeholder="breaths/min"></div>
+    </div>
+    <div class="field-row3">
+      <div class="field"><label>Oâ‚‚ Saturation (%)</label><input id="tr-o2" placeholder="e.g. 98"></div>
+      <div class="field"><label>Weight (kg)</label><input id="tr-weight" placeholder="e.g. 60"></div>
+      <div class="field"><label>Height (cm)</label><input id="tr-height" placeholder="e.g. 165"></div>
+    </div>
+    <hr class="div">
+    <div class="card-title" style="font-size:.88rem;margin-bottom:10px;">Chief Complaint & Assessment</div>
+    <div class="field"><label>Chief Complaint *</label><input id="tr-complaint" placeholder="Patient's primary concern"></div>
+    <div class="field"><label>Initial Assessment Notes</label><textarea id="tr-notes" placeholder="Nurse's initial observations..."></textarea></div>
+    <div class="field"><label>Triage Priority</label>
+      <select id="tr-priority">
+        <option value="green">ðŸŸ¢ Green â€” Non-urgent</option>
+        <option value="yellow">ðŸŸ¡ Yellow â€” Urgent</option>
+        <option value="red">ðŸ”´ Red â€” Immediate</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('modal-triage')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveTriage()"><i class="bi bi-save"></i> Save Triage</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-view">
+  <div class="modal modal-lg">
+    <button class="modal-close" onclick="closeModal('modal-view')"><i class="bi bi-x"></i></button>
+    <div class="modal-title"><i class="bi bi-file-medical"></i> Patient Record</div>
+    <div id="view-modal-content"></div>
+    <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('modal-view')">Close</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-services">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-services')"><i class="bi bi-x"></i></button>
+    <div class="modal-title"><i class="bi bi-capsule"></i> Services</div>
+    <div class="text-sm text-muted mb8" id="svc-patient"></div>
+    <div class="tabs" id="svc-tabs">
+      <button class="tab active" onclick="svcTabSwitch('medicine')"><i class="bi bi-capsule"></i> Medicine Issuance</button>
+      <button class="tab" onclick="svcTabSwitch('certificate')"><i class="bi bi-file-earmark-medical"></i> Medical Certificate</button>
+    </div>
+    <div class="tab-panel active" id="st-medicine">
+      <div class="field"><label>Medicine Name *</label><input id="svc-med-name" placeholder="Generic name"></div>
+      <div class="field-row">
+        <div class="field"><label>Dosage</label><input id="svc-med-dose" placeholder="e.g. 500mg"></div>
+        <div class="field"><label>Quantity Issued</label><input id="svc-med-qty" placeholder="e.g. 10 tablets"></div>
+      </div>
+      <div class="field"><label>Instructions</label><input id="svc-med-instr" placeholder="e.g. 1 tab every 8 hours"></div>
+      <div class="field"><label>Issued By</label><input id="svc-med-by" placeholder="Nurse name"></div>
+      <button class="btn btn-primary w100" onclick="saveMedicine()"><i class="bi bi-check-circle"></i> Record Medicine Issuance</button>
+    </div>
+    <div class="tab-panel" id="st-certificate">
+      <div class="field"><label>Certificate Type</label>
+        <select id="svc-cert-type">
+          <option>Medical Certificate for School</option>
+          <option>Medical Certificate for Employment</option>
+          <option>OJT Clearance Certificate</option>
+          <option>Sick Leave Certificate</option>
+          <option>Return-to-School / Work Certificate</option>
+        </select>
+      </div>
+      <div class="field"><label>Diagnosis / Reason</label><textarea id="svc-cert-diag" placeholder="As per clinical findings..."></textarea></div>
+      <div class="field-row">
+        <div class="field"><label>Date From</label><input type="date" id="svc-cert-from"></div>
+        <div class="field"><label>Date To</label><input type="date" id="svc-cert-to"></div>
+      </div>
+      <div class="field"><label>Issued By</label><input id="svc-cert-by" placeholder="Dr. / Nurse name"></div>
+      <button class="btn btn-primary w100" onclick="saveCert()"><i class="bi bi-file-earmark-check"></i> Issue Certificate</button>
+    </div>
+    <div id="svc-issued-list"></div>
+    <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('modal-services')">Close</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-exam">
+  <div class="modal modal-lg">
+    <button class="modal-close" onclick="closeModal('modal-exam')"><i class="bi bi-x"></i></button>
+    <div class="modal-title"><i class="bi bi-heart-pulse"></i> Medical Examination</div>
+    <div class="text-sm text-muted mb8" id="exam-modal-patient"></div>
+    <div class="tabs" id="exam-tabs">
+      <button class="tab active" onclick="examModalTab('triage-review')">1. Triage Assessment</button>
+      <button class="tab" onclick="examModalTab('diagnosis')">2. Physician Diagnosis</button>
+      <button class="tab" onclick="examModalTab('prescriptions')">3. Prescriptions</button>
+      <button class="tab" onclick="examModalTab('finalize')">4. Finalization</button>
+    </div>
+
+    <div class="tab-panel active" id="emt-triage-review">
+      <div id="triage-review-content"></div>
+      <div class="modal-footer" style="border:none;padding-top:8px;">
+        <button class="btn btn-primary" onclick="examModalTab('diagnosis')">Next: Physician Diagnosis <i class="bi bi-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="emt-diagnosis">
+      <div class="field-row">
+        <div class="field"><label>General Appearance</label><input id="ex-general" placeholder="e.g. Conscious, coherent, not in distress"></div>
+        <div class="field"><label>HEENT</label><input id="ex-heent" placeholder="Head, Eyes, Ears, Nose, Throat"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Chest / Lungs</label><input id="ex-chest" placeholder="Auscultation findings"></div>
+        <div class="field"><label>Cardiovascular</label><input id="ex-cardio" placeholder="Heart sounds, pulses"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Abdomen</label><input id="ex-abdomen" placeholder="Soft, non-tender, etc."></div>
+        <div class="field"><label>Extremities</label><input id="ex-extremities" placeholder="Gross motor, sensation"></div>
+      </div>
+      <div class="field"><label>Neurological</label><input id="ex-neuro" placeholder="GCS, orientation..."></div>
+      <hr class="div">
+      <div class="field"><label>Diagnosis / Clinical Impression *</label><textarea id="ex-diagnosis" placeholder="Primary and secondary diagnoses..."></textarea></div>
+      <div class="field"><label>ICD-10 Code (optional)</label><input id="ex-icd" placeholder="e.g. J06.9"></div>
+      <div class="modal-footer" style="border:none;padding-top:8px;">
+        <button class="btn btn-outline" onclick="examModalTab('triage-review')"><i class="bi bi-arrow-left"></i> Back</button>
+        <button class="btn btn-primary" onclick="saveDiagnosis()">Save & Continue <i class="bi bi-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="emt-prescriptions">
+      <div class="card-title" style="font-size:.88rem;margin-bottom:10px;">Laboratory Requests</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+        <label class="field-check"><input type="checkbox" class="lab-chk" value="CBC" style="width:auto;"> CBC</label>
+        <label class="field-check"><input type="checkbox" class="lab-chk" value="Urinalysis" style="width:auto;"> Urinalysis</label>
+        <label class="field-check"><input type="checkbox" class="lab-chk" value="Blood Chemistry" style="width:auto;"> Blood Chemistry</label>
+        <label class="field-check"><input type="checkbox" class="lab-chk" value="Chest X-Ray" style="width:auto;"> Chest X-Ray</label>
+        <label class="field-check"><input type="checkbox" class="lab-chk" value="ECG" style="width:auto;"> ECG</label>
+        <label class="field-check"><input type="checkbox" class="lab-chk" value="Fecalysis" style="width:auto;"> Fecalysis</label>
+      </div>
+      <div class="field"><label>Other Lab Requests</label><input id="ex-lab-other" placeholder="Specify other tests..."></div>
+      <hr class="div">
+      <div class="card-title" style="font-size:.88rem;margin-bottom:10px;">Prescriptions</div>
+      <div id="rx-list"></div>
+      <button class="btn btn-outline btn-sm mb8" onclick="addRx()"><i class="bi bi-plus"></i> Add Medication</button>
+      <hr class="div">
+      <div class="field"><label>Treatment Instructions / Referral</label><textarea id="ex-instructions" placeholder="Follow-up, referral, lifestyle advice..."></textarea></div>
+      <div class="modal-footer" style="border:none;padding-top:8px;">
+        <button class="btn btn-outline" onclick="examModalTab('diagnosis')"><i class="bi bi-arrow-left"></i> Back</button>
+        <button class="btn btn-primary" onclick="savePrescriptions()">Save & Continue <i class="bi bi-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="emt-finalize">
+      <div class="alert alert-info text-sm">Review the complete consultation summary below. Once finalized, this record is permanent and will be added to the Daily Patient Log.</div>
+      <div id="finalize-summary" style="margin-top:12px;"></div>
+      <div class="field mt8"><label>Doctor's Final Notes / Disposition</label><textarea id="ex-final-notes" placeholder="Discharge instructions, follow-up date, additional remarks..."></textarea></div>
+      <div class="modal-footer" style="border:none;padding-top:8px;">
+        <button class="btn btn-outline" onclick="examModalTab('prescriptions')"><i class="bi bi-arrow-left"></i> Back</button>
+        <button class="btn btn-primary" onclick="finalizeConsult()" style="flex:1;"><i class="bi bi-check-circle"></i> Finalize & Approve Clinical Findings</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/shared.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/patient.js"></script>
+<script src="assets/js/nurse.js"></script>
+<script src="assets/js/doctor.js"></script>
+<script src="assets/js/admin.js"></script>
+<script src="assets/js/modals.js"></script>
+</body>
+</html>
