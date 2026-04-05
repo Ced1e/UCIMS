@@ -186,6 +186,9 @@ function renderQueueTicket(m,entry){
   const sMap={waiting:{lbl:'Waiting for Triage',badge:'b-yellow'},'triaged':{lbl:'Triaged — Awaiting Doctor',badge:'b-blue'},'with-doctor':{lbl:'With the Doctor',badge:'b-blue'},done:{lbl:'Consultation Complete',badge:'b-green'}};
   const s=sMap[live.status]||{lbl:live.status,badge:'b-gray'};
   const purposeLabelColor=live.purposeType==='medcert'?'var(--blue)':'var(--maroon)';
+  
+  const allWaiting = queue.filter(q => !q.finalized);
+
   m.innerHTML=`
     <div class="page-header"><h1>Queue Status</h1><p>Your current position in the clinic queue.</p></div>
     <div class="steps" style="max-width:800px;">
@@ -221,7 +224,24 @@ function renderQueueTicket(m,entry){
             </div>`).join('')}
         </div>
         <div class="text-sm mt12"><span class="text-muted">Chief Complaint:</span> ${live.triage.complaint||'—'}</div>
-      </div>`:''}`;
+      </div>`:''}
+      
+    <div class="card" style="max-width:800px; margin-top:20px;">
+      <div class="card-title" style="font-size: 1.05rem;">Current Clinic Queue</div>
+      <div class="text-sm text-muted mb8">See all patients currently in line.</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Queue #</th><th>Status</th></tr></thead>
+        <tbody>${allWaiting.map(q=>`
+          <tr style="${q.queueNum === live.queueNum ? 'background:#fdf5f5;' : ''}">
+            <td style="${q.queueNum === live.queueNum ? 'font-weight:bold; color:var(--maroon);' : ''}">
+              <span class="num-badge" style="${q.queueNum === live.queueNum ? 'background:var(--maroon);' : 'background:#888;'}">${q.queueNum}</span> 
+              ${q.queueNum === live.queueNum ? ' (You)' : ''}
+            </td>
+            <td>${statusBadge(q.status)}</td>
+          </tr>`).join('')}
+        </tbody></table></div>
+    </div>
+  `;
 }
 
 function leaveQueue(){

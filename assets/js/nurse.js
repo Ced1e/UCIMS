@@ -18,8 +18,17 @@ function visitBadge(q){
 }
 
 function renderNurseQueue(m){
-  const waiting  = queue.filter(q=>!q.finalized);
+  let waiting  = queue.filter(q=>!q.finalized);
   const doneToday= queue.filter(q=>q.finalized);
+
+  // FIX: Sort queue by triage priority (Red -> Yellow -> Green -> Untriaged)
+  waiting.sort((a, b) => {
+    const pMap = { 'red': 1, 'yellow': 2, 'green': 3 };
+    const pA = a.triage?.priority ? pMap[a.triage.priority] : 4;
+    const pB = b.triage?.priority ? pMap[b.triage.priority] : 4;
+    if (pA !== pB) return pA - pB;
+    return a.queueNum - b.queueNum; 
+  });
 
   m.innerHTML=`
     <div class="page-header"><h1>Queue Monitoring</h1><p>Real-time patient queue — ${waiting.length} patient(s) currently waiting.</p></div>
@@ -50,7 +59,7 @@ function renderNurseQueue(m){
           </button>
           ${q.triaged?`<button class="btn btn-outline btn-sm" onclick="viewTriageModal(${q.queueNum})"><i class="bi bi-eye"></i> Triage</button>`:''}
           ${q.triaged&&!q.endorsed?`<button class="btn btn-outline btn-sm" onclick="endorsePatient(${q.queueNum})"><i class="bi bi-arrow-right-circle"></i> Endorse</button>`:''}
-          ${q.endorsed?`<span class="badge b-blue"><i class="bi bi-check"></i> Endorsed</span>`:''}
+          ${q.endorsed?`<button class="btn btn-outline btn-sm" style="color:var(--blue);" onclick="undoEndorse(${q.queueNum})"><i class="bi bi-arrow-counterclockwise"></i> Undo Endorse</button>`:''}
           <button class="btn btn-outline btn-sm" onclick="openViewModal(${q.queueNum})"><i class="bi bi-file-medical"></i> Record</button>
           <button class="btn btn-outline btn-sm" style="color:var(--text-muted);" onclick="cancelFromQueue(${q.queueNum})" title="Cancel & remove from queue"><i class="bi bi-x-circle"></i> Cancel</button>
         </div>
@@ -63,6 +72,15 @@ function endorsePatient(qnum){
   if(!e.triaged){ toast('Please complete triage before endorsing.','error'); return; }
   e.endorsed=true; e.status='with-doctor'; saveData();
   toast(`${e.name} endorsed to the doctor.`);
+  nurseNav('queue');
+}
+
+function undoEndorse(qnum){
+  const e=queue.find(q=>q.queueNum==qnum);
+  if(!e) return;
+  if(!confirm(`Undo endorsement for ${e.name}?`)) return;
+  e.endorsed=false; e.status='triaged'; saveData();
+  toast(`Endorsement undone for ${e.name}.`, 'info');
   nurseNav('queue');
 }
 
