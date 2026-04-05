@@ -11,41 +11,131 @@
 
 <div class="page active" id="page-home">
   <div class="home-wrap">
+
+    <!-- ── TOPBAR ── -->
     <div class="home-topbar">
-      <div class="home-brand">
-        <img src="./assets/img/logo.png" class="logo-img" alt="USeP">
-        <div class="home-brand-name">University of Southeastern Philippines</div>
-      </div>
-      <div style="display:flex;gap:14px;align-items:center;">
-        <button class="btn btn-white-outline btn-sm" onclick="showPage('page-login')">Access System</button>
-      </div>
+      <img src="./assets/img/logoHeader.jpg" class="home-header-logo" alt="USeP — We Build Dreams Without Limits">
+      <nav class="home-nav">
+        <a href="#section-services" class="home-nav-link" onclick="scrollToSection('section-services')">Services</a>
+        <a href="#section-about" class="home-nav-link" onclick="scrollToSection('section-about')">About</a>
+        <a href="#section-socials" class="home-nav-link" onclick="scrollToSection('section-socials')">Contact</a>
+      </nav>
     </div>
-    <div class="home-body">
+
+    <!-- ── HERO ── -->
+    <div class="home-body" id="section-hero">
       <div class="home-container">
         <div class="home-center">
-          <img src="./assets/img/logo.png" class="logo-img main-logo" alt="USeP Logo">
           <div class="home-univ">University of Southeastern Philippines</div>
           <div class="home-system">Clinic Information<br>Management System</div>
-          <div class="home-tagline">A centralized digital platform for managing clinic visits, patient records, consultations, and health documentation securely.</div>
+          <div class="home-tagline-sub">A centralized digital platform for managing clinic visits, patient records, consultations, and health documentation securely.</div>
           <div class="home-btns">
             <button class="btn btn-white btn-lg" onclick="showPage('page-login');setRole('patient')"><i class="bi bi-person"></i> Patient Login</button>
             <button class="btn btn-white-outline btn-lg" onclick="showPage('page-login');setRole('staff')"><i class="bi bi-shield-lock"></i> Staff Login</button>
           </div>
         </div>
-        
         <div class="home-info">
-          <div class="home-info-card" style="padding: 32px; background: rgba(255,255,255,0.1);">
+          <div class="home-info-card">
             <div class="home-info-icon"><i class="bi bi-bullseye"></i></div>
-            <div class="home-info-title" style="font-size: 1.2rem; margin-bottom: 14px;">System Objective</div>
-            <div class="home-info-text" style="font-size: 0.95rem; line-height: 1.7; text-align: justify;">
+            <div class="home-info-title">System Objective</div>
+            <div class="home-info-text">
               The general objective of the proposed University Clinic Information Management System (UCIMS) is to develop a web-based, role-based platform that streamlines and automates the operational workflow of the university clinic, enhancing the efficiency of patient registration, consultation management, and clinical documentation while ensuring data integrity and user-specific access control.
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- ── SERVICES ── -->
+    <section class="home-section" id="section-services">
+      <div class="home-section-inner">
+        <div class="home-section-label">What We Offer</div>
+        <h2 class="home-section-title">Services Offered</h2>
+        <p class="home-section-sub">The USeP University Clinic provides the following health services to students and personnel.</p>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon"><i class="bi bi-heart-pulse"></i></div>
+            <div class="service-name">Check-Up</div>
+            <div class="service-desc">General medical consultations and physical examinations conducted by licensed clinic physicians and nurses for students and staff.</div>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="bi bi-capsule"></i></div>
+            <div class="service-name">Medicine Request</div>
+            <div class="service-desc">Patients may request available medicines from the clinic's pharmacy for treatment of minor illnesses and health conditions.</div>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="bi bi-calendar-check"></i></div>
+            <div class="service-name">Follow-Up Consultation</div>
+            <div class="service-desc">Scheduled follow-up visits to monitor ongoing health conditions and review treatment progress after an initial consultation.</div>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="bi bi-file-earmark-medical"></i></div>
+            <div class="service-name">Medical Certificate Request</div>
+            <div class="service-desc">Issuance of official medical certificates for school, employment, OJT clearance, sick leave, and return-to-work or school purposes.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ABOUT ── -->
+    <section class="home-section home-section-dark" id="section-about">
+      <div class="home-section-inner">
+        <div class="about-layout">
+          <div class="about-left">
+            <div class="home-section-label" style="color:var(--gold-light);">Background</div>
+            <h2 class="home-section-title about-section-title">About the System</h2>
+            <div class="about-rule"></div>
+            <div class="about-text">
+              <p>The <strong>University Clinic Information Management System (UCIMS)</strong> is a web-based information system developed to serve as a <strong>centralized digital registry</strong> for the healthcare services of the University of Southeastern Philippines.</p>
+              <p>The project aims to <strong>modernize the management of clinic operations</strong> by integrating patient registration, consultation documentation, medical history tracking, and certificate processing into a <strong>unified digital platform</strong>. By replacing traditional paper-based documentation with a secure and responsive system, UCIMS provides an efficient solution for organizing clinical data and improving the accessibility of health records.</p>
+              <p>Ultimately, UCIMS supports the delivery of <strong>quality healthcare services</strong> within the university — ensuring that every student and personnel receives timely, well-documented, and properly managed clinical care.</p>
+            </div>
+          </div>
+          <div class="about-photo-col">
+            <img src="./assets/img/team.jpg" class="about-photo" alt="UCIMS Research Team">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SOCIALS / CONTACT ── -->
+    <section class="home-section home-section-socials" id="section-socials">
+      <div class="home-section-inner home-section-inner-center">
+        <div class="home-section-label">Get in Touch</div>
+        <h2 class="home-section-title">Connect With Us</h2>
+        <p class="home-section-sub home-section-sub-center">Reach out to the University of Southeastern Philippines through our official channels.</p>
+        <div class="socials-grid">
+          <a class="social-card" href="https://www.facebook.com/USePofficial" target="_blank" rel="noopener">
+            <div class="social-icon facebook"><i class="bi bi-facebook"></i></div>
+            <div class="social-text"><div class="social-name">Facebook</div><div class="social-handle">@USePofficial</div></div>
+          </a>
+          <a class="social-card" href="https://www.instagram.com/usepofficial/" target="_blank" rel="noopener">
+            <div class="social-icon instagram"><i class="bi bi-instagram"></i></div>
+            <div class="social-text"><div class="social-name">Instagram</div><div class="social-handle">@usepofficial</div></div>
+          </a>
+          <a class="social-card" href="mailto:pad@usep.edu.ph">
+            <div class="social-icon email"><i class="bi bi-envelope-fill"></i></div>
+            <div class="social-text"><div class="social-name">Email</div><div class="social-handle">pad@usep.edu.ph</div></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="home-footer">
+      <span>© 2025 University of Southeastern Philippines — University Clinic Information Management System</span>
+    </footer>
+
   </div>
 </div>
+
+<script>
+function scrollToSection(id) {
+  event.preventDefault();
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
 
 <div class="page" id="page-login">
   <div class="auth-bg">
